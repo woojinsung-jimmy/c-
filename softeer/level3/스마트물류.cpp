@@ -1,38 +1,31 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <string>
 
 using namespace std;
 
-
 int main()
 {
-    char line[20001];
-    int n,k,cnt=0;
-    cin>>n>>k;
-    for (int i = 0; i < n; i++)
-    {
-        cin>>line[i];
-    }
+    int N, K, cnt = 0;
+    string s;
+    cin >> N >> K;
+    cin >> s;
 
-    for (int i = 0; i < n; i++) //모든 line 검사
+    for (int i = 0; i < N; i++)
     {
-        if(line[i]=='P'){   //로봇일때
-            for (int j = k;j>=-k;j--){ //-k부터 k까지
-                if (line[i-j]=='H'){
-                    line[i-j]='X'; //집은건 x로 만듦
-                    cnt++;  //로봇 수 증가
+        if (s[i] == 'P')
+        {
+            for (int j = -K; j <= K; j++)
+            {
+                if (s[i + j] == 'H')
+                {
+                    cnt++;
+                    s[i + j] = 'X';
                     break;
                 }
             }
         }
     }
-    // for (int i = 0; i < n; i++)
-    // {
-    //     cout<<line[i];
-    // }
-    cout<<cnt;
-    
-    
+    cout << cnt << "\n";
 }
-

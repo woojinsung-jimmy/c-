@@ -3,40 +3,46 @@
 #include <algorithm>
 
 using namespace std;
-int n,m,a,b,answer;
-
 
 int main()
 {
 
-    cin>>n>>m;
+    int N, M, a, b;
+    cin >> N >> M;
+    vector<int> weight(N + 1, 0);
+    vector<int> best(N + 1, 1);
 
-    vector<bool> iambest(n+1,1);
-    vector<int> power(n+1,0);
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i <= N; i++)
     {
-        cin>>power[i];
+        cin >> weight[i];
     }
-    
-while(m--){
-    cin>>a>>b;
-    if(power[a]<power[b]) {
-        iambest[a]=0;
-    }
-    else if(power[a]>power[b]) {
-        iambest[b] = 0;
-    }
-    else{
-        iambest[a]=0;
-        iambest[b]=0;
-    }
-}
-    for (int i = 1; i <=n; i++)
+
+    while (M--)
     {
-        if(iambest[i]>0) answer++;
+        cin >> a >> b;
+        if (weight[a] > weight[b])
+        {
+            best[b] = 0;
+        }
+        else if (weight[a] < weight[b])
+        {
+            best[a] = 0;
+        }
+        else
+        {
+            best[a] = 0;
+            best[b] = 0;
+        }
     }
 
-    cout<<answer;
-    
-}
+    int cnt = 0;
+    for (int i = 1; i <= N; i++)
+    {
+        if (best[i] != 0)
+        {
+            cnt++;
+        }
+    }
 
+    cout << cnt << "\n";
+}

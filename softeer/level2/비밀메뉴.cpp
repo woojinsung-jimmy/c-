@@ -1,43 +1,61 @@
-#include<iostream>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-int M, N, K;
-int secret[101];
-int button[101];
-string answer = "normal";
+vector<int> menu, user;
 
-int main(int argc, char** argv)
+int compare(int i, int j, int M);
+
+int main(int argc, char **argv)
 {
-	cin >> M >> N >> K;
 
-	for (int i = 0; i < M; i++) {
-		cin >> secret[i];
-	}
+    int N, M, K, temp, flag = 0;
+    cin >> M >> N >> K;
 
-	for (int i = 0; i < N; i++) {
-		cin >> button[i];	
-	}
+    for (int i = 0; i < M; i++) // 비밀 메뉴 조작법 입력
+    {
+        cin >> temp;
+        menu.push_back(temp);
+    }
 
-	if (M <= N) {
-		int left = 0;
-		while (left < N-M+1) {
+    for (int i = 0; i < N; i++) // 사용자의 조작 입력
+    {
+        cin >> temp;
+        user.push_back(temp);
+    }
 
-			int flag = 0;
-			for (int i = 0; i < M; i++) {
-				if (secret[i] != button[left+i]) flag = 1;
-			}
+    for (int i = 0; i < N; i++) // 비교
+    {
+        flag = compare(i, 0, M);
+        if (flag == 1)
+        {
+            cout << "secret\n";
+            break;
+        }
+    }
 
-			if (flag == 0) {
-				answer = "secret";
-				break;
-			}
+    if (flag == 0)
+    {
+        cout << "normal\n";
+    }
 
-			left++;
-		}
-	}
+}
 
-	cout << answer;
-
-	return 0;
+int compare(int i, int j, int M)
+{
+    if (j == M)
+    {
+        return 1;
+    }
+    
+    if (user[i + j] == menu[j])
+    {
+        compare(i, j + 1, M);
+    }
+    else
+    {
+        return 0;
+    }
 }
